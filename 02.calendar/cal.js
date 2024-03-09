@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { endOfMonth, isSaturday, setDate, addDays } from "date-fns";
 import minimist from "minimist";
 
@@ -13,16 +15,16 @@ let display_dates = (target_date) => {
   let last_date = endOfMonth(target_date);
 
   for (let date = first_date; date <= last_date; date = addDays(date, 1)) {
-    process.stdout.write(String(date.getDate()).padStart(3, " "));
-    if (isSaturday(date)) {
-      process.stdout.write("\n");
+    process.stdout.write(String(date.getDate()).padStart(2, " ") + " ");
+    if (isSaturday(date) || date.getDate() == last_date.getDate()) {
+      console.log();
     }
   }
 };
 
 let display_calendar = (year, month) => {
-  process.stdout.write("      " + month + "月 " + year + "\n");
-  process.stdout.write(" " + WEEK.join(" ") + "\n");
+  console.log("      " + month + "月 " + year);
+  console.log(WEEK.join(" "));
 
   let target_date = new Date(year, month - 1);
   add_spaces(target_date);
