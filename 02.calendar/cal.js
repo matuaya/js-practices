@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 
-import { endOfMonth, isSaturday, addDays } from "date-fns";
+import * as dateFns from "date-fns";
 import minimist from "minimist";
 
 const displayDates = (firstOfMonth) => {
-  const lastOfMonth = endOfMonth(firstOfMonth);
+  const lastOfMonth = dateFns.endOfMonth(firstOfMonth);
 
   process.stdout.write("   ".repeat(firstOfMonth.getDay()));
-  for (let date = firstOfMonth; date <= lastOfMonth; date = addDays(date, 1)) {
+  for (
+    let date = firstOfMonth;
+    date <= lastOfMonth;
+    date = dateFns.addDays(date, 1)
+  ) {
     let paddedDate = String(date.getDate()).padStart(2, " ");
-    if (isSaturday(date) || date.getDate() === lastOfMonth.getDate()) {
+    if (dateFns.isSaturday(date) || date.getDate() === lastOfMonth.getDate()) {
       console.log(paddedDate);
     } else {
       process.stdout.write(`${paddedDate} `);
