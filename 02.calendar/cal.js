@@ -3,12 +3,12 @@
 import * as dateFns from "date-fns";
 import minimist from "minimist";
 
-const displayDates = (firstOfMonth) => {
-  const lastOfMonth = dateFns.endOfMonth(firstOfMonth);
+const displayDates = (firstDateOfMonth) => {
+  const lastOfMonth = dateFns.endOfMonth(firstDateOfMonth);
 
-  process.stdout.write("   ".repeat(firstOfMonth.getDay()));
+  process.stdout.write("   ".repeat(firstDateOfMonth.getDay()));
   for (
-    let date = firstOfMonth;
+    let date = firstDateOfMonth;
     date <= lastOfMonth;
     date = dateFns.addDays(date, 1)
   ) {
@@ -22,10 +22,11 @@ const displayDates = (firstOfMonth) => {
 };
 
 const displayCalendar = (year, month) => {
-  console.log(`      ${month}月 ${year}\n日 月 火 水 木 金 土`);
+  console.log(`      ${month}月 ${year}`);
+  console.log(`日 月 火 水 木 金 土`);
 
-  const firstOfMonth = new Date(year, month - 1);
-  displayDates(firstOfMonth);
+  const firstDateOfMonth = new Date(year, month - 1);
+  displayDates(firstDateOfMonth);
 };
 
 const main = () => {
