@@ -3,20 +3,21 @@
 import * as dateFns from "date-fns";
 import minimist from "minimist";
 
-const displayDates = (firstDateOfMonth) => {
-  const lastOfMonth = dateFns.endOfMonth(firstDateOfMonth);
+const printDatesOfMonth = (firstDateOfMonth) => {
+  const lastDateOfMonth = dateFns.endOfMonth(firstDateOfMonth);
 
   process.stdout.write("   ".repeat(firstDateOfMonth.getDay()));
   for (
     let date = firstDateOfMonth;
-    date <= lastOfMonth;
+    date <= lastDateOfMonth;
     date = dateFns.addDays(date, 1)
   ) {
-    let paddedDate = String(date.getDate()).padStart(2, " ");
-    if (dateFns.isSaturday(date) || date.getDate() === lastOfMonth.getDate()) {
-      console.log(paddedDate);
+    const paddedDayString = String(date.getDate()).padStart(2, " ");
+    process.stdout.write(paddedDayString);
+    if (dateFns.isSaturday(date) || date === lastDateOfMonth) {
+      console.log();
     } else {
-      process.stdout.write(`${paddedDate} `);
+      process.stdout.write(` `);
     }
   }
 };
@@ -26,7 +27,7 @@ const displayCalendar = (year, month) => {
   console.log(`日 月 火 水 木 金 土`);
 
   const firstDateOfMonth = new Date(year, month - 1);
-  displayDates(firstDateOfMonth);
+  printDatesOfMonth(firstDateOfMonth);
 };
 
 const main = () => {
