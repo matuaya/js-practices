@@ -17,7 +17,7 @@ const printDatesOfMonth = (firstDateOfMonth) => {
     if (dateFns.isSaturday(date) || date === lastDateOfMonth) {
       console.log();
     } else {
-      process.stdout.write(` `);
+      process.stdout.write(" ");
     }
   }
 };
