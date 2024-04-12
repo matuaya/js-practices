@@ -3,7 +3,8 @@
 import * as dateFns from "date-fns";
 import minimist from "minimist";
 
-const printDatesOfMonth = (firstDateOfMonth) => {
+const printDatesOfMonth = (year, month) => {
+  const firstDateOfMonth = new Date(year, month - 1);
   const lastDateOfMonth = dateFns.endOfMonth(firstDateOfMonth);
 
   process.stdout.write("   ".repeat(firstDateOfMonth.getDay()));
@@ -26,8 +27,7 @@ const displayCalendar = (year, month) => {
   console.log(`      ${month}月 ${year}`);
   console.log(`日 月 火 水 木 金 土`);
 
-  const firstDateOfMonth = new Date(year, month - 1);
-  printDatesOfMonth(firstDateOfMonth);
+  printDatesOfMonth(year, month);
 };
 
 const main = () => {
