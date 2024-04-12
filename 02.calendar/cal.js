@@ -14,7 +14,7 @@ const printDatesOfMonth = (firstDateOfMonth) => {
   ) {
     const paddedDayString = String(date.getDate()).padStart(2, " ");
     process.stdout.write(paddedDayString);
-    if (dateFns.isSaturday(date) || date === lastDateOfMonth) {
+    if (dateFns.isSaturday(date) || dateFns.isLastDayOfMonth(date)) {
       console.log();
     } else {
       process.stdout.write(" ");
