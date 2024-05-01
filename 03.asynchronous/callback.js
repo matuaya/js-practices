@@ -27,7 +27,10 @@ await timers.setTimeout(1000);
 db.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
   () => {
-    db.run("INSERT INTO books (title) VALUES (?)", ["book1"], () => {
+    db.run("INSERT INTO books (name) VALUES (?)", ["book1"], function (error) {
+      if (error) {
+        console.log(error.message);
+      }
       db.get(
         "SELECT * FROM textbooks WHERE title=?",
         ["book1"],
