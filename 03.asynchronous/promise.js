@@ -42,6 +42,16 @@ runQuery(
 
 await timers.setTimeout(1000);
 
+const runQueryErrorHandling = (sql, param) => {
+  return new Promise((resolve, reject) => {
+    db.run(sql, param, function (error) {
+      if (error) {
+        reject(error);
+      } else resolve(this);
+    });
+  });
+};
+
 const getDataErrorHandling = (sql, param) => {
   return new Promise((resolve, reject) => {
     db.get(sql, param, (error, row) => {
@@ -56,11 +66,17 @@ runQuery(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 )
   .then(() => {
-    return runQuery("INSERT INTO books (title) VALUES (?)", ["book1"]);
+    return runQueryErrorHandling("INSERT INTO books (name) VALUES (?)", [
+      "book1",
+    ]);
   })
   .then((statementObj) => {
     console.log(statementObj.lastID);
   })
+  .catch((error) => {
+    console.log(error.message);
+  })
+
   .then(() => {
     return getDataErrorHandling("SELECT * FROM textbooks WHERE title=?", [
       "book1",
