@@ -2,12 +2,7 @@
 
 import sqlite3 from "sqlite3";
 import timers from "timers/promises";
-import {
-  runQuery,
-  runQueryErrorHandling,
-  getData,
-  getDataErrorHandling,
-} from "./database_utils.js";
+import { runQuery, getData } from "./database_utils.js";
 
 const db = new sqlite3.Database(":memory:");
 
@@ -38,7 +33,7 @@ await timers.setTimeout(1000);
   );
 
   try {
-    const statementObj = await runQueryErrorHandling(
+    const statementObj = await runQuery(
       db,
       "INSERT INTO books (name) VALUES (?)",
       ["book1"],
@@ -49,11 +44,9 @@ await timers.setTimeout(1000);
   }
 
   try {
-    const row = await getDataErrorHandling(
-      db,
-      "SELECT * FROM textbooks WHERE title=?",
-      ["book1"],
-    );
+    const row = await getData(db, "SELECT * FROM textbooks WHERE title=?", [
+      "book1",
+    ]);
     console.log(row);
   } catch (error) {
     console.log(error.message);

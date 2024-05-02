@@ -2,12 +2,7 @@
 
 import sqlite3 from "sqlite3";
 import timers from "timers/promises";
-import {
-  runQuery,
-  runQueryErrorHandling,
-  getData,
-  getDataErrorHandling,
-} from "./database_utils.js";
+import { runQuery, getData } from "./database_utils.js";
 
 const db = new sqlite3.Database(":memory:");
 
@@ -38,9 +33,7 @@ runQuery(
   "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 )
   .then(() => {
-    return runQueryErrorHandling(db, "INSERT INTO books (name) VALUES (?)", [
-      "book1",
-    ]);
+    return runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
   })
   .then((statementObj) => {
     console.log(statementObj.lastID);
@@ -50,9 +43,7 @@ runQuery(
   })
 
   .then(() => {
-    return getDataErrorHandling(db, "SELECT * FROM textbooks WHERE title=?", [
-      "book1",
-    ]);
+    return getData(db, "SELECT * FROM textbooks WHERE title=?", ["book1"]);
   })
   .then((row) => {
     console.log(row);
