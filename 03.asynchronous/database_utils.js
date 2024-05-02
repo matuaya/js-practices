@@ -1,6 +1,6 @@
-export const runQuery = (db, sql, param) => {
+export const runQuery = (db, sql, params) => {
   return new Promise((resolve, reject) => {
-    db.run(sql, param, function (error) {
+    db.run(sql, params, function (error) {
       if (error) {
         reject(error);
       } else resolve(this);
@@ -8,9 +8,9 @@ export const runQuery = (db, sql, param) => {
   });
 };
 
-export const getData = (db, sql, param) => {
+export const getData = (db, sql, params) => {
   return new Promise((resolve, reject) => {
-    db.get(sql, param, (error, row) => {
+    db.get(sql, params, (error, row) => {
       if (error) {
         reject(error);
       } else resolve(row);
