@@ -8,7 +8,7 @@ const db = new sqlite3.Database(":memory:");
 
 runQuery(
   db,
-  "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
+  "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 )
   .then(() => {
     return runQuery(db, "INSERT INTO books (title) VALUES (?)", ["book1"]);
@@ -17,7 +17,7 @@ runQuery(
     console.log(statement.lastID);
   })
   .then(() => {
-    return getData(db, "SELECT * FROM books WHERE title=?", ["book1"]);
+    return getData(db, "SELECT * FROM books WHERE title = ?", ["book1"]);
   })
   .then((row) => {
     console.log(row);
@@ -30,7 +30,7 @@ await timers.setTimeout(1000);
 
 runQuery(
   db,
-  "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
+  "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 )
   .then(() => {
     return runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
@@ -43,7 +43,7 @@ runQuery(
   })
 
   .then(() => {
-    return getData(db, "SELECT * FROM textbooks WHERE title=?", ["book1"]);
+    return getData(db, "SELECT * FROM textbooks WHERE title = ?", ["book1"]);
   })
   .then((row) => {
     console.log(row);

@@ -9,14 +9,16 @@ const db = new sqlite3.Database(":memory:");
 (async () => {
   await runQuery(
     db,
-    "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
+    "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
   );
   const statement = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
     "book1",
   ]);
   console.log(statement.lastID);
 
-  const row = await getData(db, "SELECT * FROM books WHERE title=?", ["book1"]);
+  const row = await getData(db, "SELECT * FROM books WHERE title = ?", [
+    "book1",
+  ]);
   console.log(row);
 
   runQuery(db, "DROP TABLE books");
@@ -27,7 +29,7 @@ await timers.setTimeout(1000);
 (async () => {
   await runQuery(
     db,
-    "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
+    "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
   );
 
   try {
@@ -42,7 +44,7 @@ await timers.setTimeout(1000);
   }
 
   try {
-    const row = await getData(db, "SELECT * FROM textbooks WHERE title=?", [
+    const row = await getData(db, "SELECT * FROM textbooks WHERE title = ?", [
       "book1",
     ]);
     console.log(row);
