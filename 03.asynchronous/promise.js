@@ -39,7 +39,7 @@ runQuery(
     console.log(statement.lastID);
   })
   .catch((error) => {
-    console.log(error.message);
+    console.error(error.message);
   })
 
   .then(() => {
@@ -52,5 +52,5 @@ runQuery(
     return runQuery(db, "DROP TABLE books");
   })
   .catch((error) => {
-    console.log(error.message);
+    console.error(error.message);
   });

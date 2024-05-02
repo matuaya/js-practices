@@ -29,14 +29,14 @@ db.run(
   () => {
     db.run("INSERT INTO books (name) VALUES (?)", ["book1"], function (error) {
       if (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
       db.get(
         "SELECT * FROM textbooks WHERE title = ?",
         ["book1"],
         (error, row) => {
           if (error) {
-            return console.log(error.message);
+            return console.error(error.message);
           }
           console.log(row);
 

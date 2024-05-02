@@ -40,7 +40,7 @@ await timers.setTimeout(1000);
     );
     console.log(statement.lastID);
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
   }
 
   try {
@@ -49,7 +49,7 @@ await timers.setTimeout(1000);
     ]);
     console.log(row);
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
   }
 
   runQuery(db, "DROP TABLE books");
