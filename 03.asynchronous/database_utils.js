@@ -3,7 +3,9 @@ export const runQuery = (db, sql, params) => {
     db.run(sql, params, function (error) {
       if (error) {
         reject(error);
-      } else resolve(this);
+      } else {
+        resolve(this);
+      }
     });
   });
 };
@@ -13,7 +15,9 @@ export const getData = (db, sql, params) => {
     db.get(sql, params, (error, row) => {
       if (error) {
         reject(error);
-      } else resolve(row);
+      } else {
+        resolve(row);
+      }
     });
   });
 };
