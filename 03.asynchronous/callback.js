@@ -30,16 +30,18 @@ db.run(
     db.run("INSERT INTO books (name) VALUES (?)", ["book1"], function (error) {
       if (error) {
         console.error(error.message);
+      } else {
+        console.log(this.lastID);
       }
       db.get(
         "SELECT * FROM textbooks WHERE title = ?",
         ["book1"],
         (error, row) => {
           if (error) {
-            return console.error(error.message);
+            console.error(error.message);
+          } else {
+            console.log(row);
           }
-          console.log(row);
-
           db.run("DROP TABLE books");
         },
       );
