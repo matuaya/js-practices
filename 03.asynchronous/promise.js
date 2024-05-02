@@ -13,8 +13,8 @@ runQuery(
   .then(() => {
     return runQuery(db, "INSERT INTO books (title) VALUES (?)", ["book1"]);
   })
-  .then((statementObj) => {
-    console.log(statementObj.lastID);
+  .then((statement) => {
+    console.log(statement.lastID);
   })
   .then(() => {
     return getData(db, "SELECT * FROM books WHERE title=?", ["book1"]);
@@ -35,8 +35,8 @@ runQuery(
   .then(() => {
     return runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
   })
-  .then((statementObj) => {
-    console.log(statementObj.lastID);
+  .then((statement) => {
+    console.log(statement.lastID);
   })
   .catch((error) => {
     console.log(error.message);

@@ -11,12 +11,10 @@ const db = new sqlite3.Database(":memory:");
     db,
     "CREATE TABLE books(id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
   );
-  const statementObj = await runQuery(
-    db,
-    "INSERT INTO books (title) VALUES (?)",
-    ["book1"],
-  );
-  console.log(statementObj.lastID);
+  const statement = await runQuery(db, "INSERT INTO books (title) VALUES (?)", [
+    "book1",
+  ]);
+  console.log(statement.lastID);
 
   const row = await getData(db, "SELECT * FROM books WHERE title=?", ["book1"]);
   console.log(row);
@@ -33,12 +31,12 @@ await timers.setTimeout(1000);
   );
 
   try {
-    const statementObj = await runQuery(
+    const statement = await runQuery(
       db,
       "INSERT INTO books (name) VALUES (?)",
       ["book1"],
     );
-    console.log(statementObj.lastID);
+    console.log(statement.lastID);
   } catch (error) {
     console.log(error.message);
   }
