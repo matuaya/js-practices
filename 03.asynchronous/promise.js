@@ -48,9 +48,9 @@ runQuery(
   .then((row) => {
     console.log(row);
   })
-  .then(() => {
-    return runQuery(db, "DROP TABLE books");
-  })
   .catch((error) => {
     console.error(error.message);
+  })
+  .then(() => {
+    return runQuery(db, "DROP TABLE books");
   });
