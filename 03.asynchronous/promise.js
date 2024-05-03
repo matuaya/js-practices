@@ -15,14 +15,12 @@ runQuery(
   })
   .then((statement) => {
     console.log(statement.lastID);
-  })
-  .then(() => {
+
     return getData(db, "SELECT * FROM books WHERE title = ?", ["book1"]);
   })
   .then((row) => {
     console.log(row);
-  })
-  .then(() => {
+
     return runQuery(db, "DROP TABLE books");
   });
 
@@ -40,9 +38,7 @@ runQuery(
   })
   .catch((error) => {
     console.error(error.message);
-  })
 
-  .then(() => {
     return getData(db, "SELECT * FROM textbooks WHERE title = ?", ["book1"]);
   })
   .then((row) => {
@@ -50,7 +46,6 @@ runQuery(
   })
   .catch((error) => {
     console.error(error.message);
-  })
-  .then(() => {
+
     return runQuery(db, "DROP TABLE books");
   });
