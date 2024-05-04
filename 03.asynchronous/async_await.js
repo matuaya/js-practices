@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import timers from "timers/promises";
 import sqlite3 from "sqlite3";
 import { runQuery, getData } from "./database_utils.js";
 
@@ -18,9 +17,7 @@ console.log(statement.lastID);
 const row = await getData(db, "SELECT * FROM books WHERE title = ?", ["book1"]);
 console.log(row);
 
-runQuery(db, "DROP TABLE books");
-
-await timers.setTimeout(1000);
+await runQuery(db, "DROP TABLE books");
 
 await runQuery(
   db,
