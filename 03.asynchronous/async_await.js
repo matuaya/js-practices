@@ -33,21 +33,13 @@ await timers.setTimeout(1000);
   );
 
   try {
-    const statement = await runQuery(
-      db,
-      "INSERT INTO books (name) VALUES (?)",
-      ["book1"],
-    );
-    console.log(statement.lastID);
+    await runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
   } catch (error) {
     console.error(error.message);
   }
 
   try {
-    const row = await getData(db, "SELECT * FROM textbooks WHERE title = ?", [
-      "book1",
-    ]);
-    console.log(row);
+    await getData(db, "SELECT * FROM textbooks WHERE title = ?", ["book1"]);
   } catch (error) {
     console.error(error.message);
   }

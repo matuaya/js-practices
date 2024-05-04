@@ -33,16 +33,10 @@ runQuery(
   .then(() => {
     return runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
   })
-  .then((statement) => {
-    console.log(statement.lastID);
-  })
   .catch((error) => {
     console.error(error.message);
 
     return getData(db, "SELECT * FROM textbooks WHERE title = ?", ["book1"]);
-  })
-  .then((row) => {
-    console.log(row);
   })
   .catch((error) => {
     console.error(error.message);

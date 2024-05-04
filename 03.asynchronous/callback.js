@@ -28,23 +28,13 @@ db.run(
   "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
   () => {
     db.run("INSERT INTO books (name) VALUES (?)", ["book1"], function (error) {
-      if (error) {
+      console.error(error.message);
+
+      db.get("SELECT * FROM textbooks WHERE title = ?", ["book1"], (error) => {
         console.error(error.message);
-      } else {
-        console.log(this.lastID);
-      }
-      db.get(
-        "SELECT * FROM textbooks WHERE title = ?",
-        ["book1"],
-        (error, row) => {
-          if (error) {
-            console.error(error.message);
-          } else {
-            console.log(row);
-          }
-          db.run("DROP TABLE books");
-        },
-      );
+
+        db.run("DROP TABLE books");
+      });
     });
   },
 );
