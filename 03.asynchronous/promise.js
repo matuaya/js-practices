@@ -10,9 +10,7 @@ runQuery(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 )
-  .then(() => {
-    return runQuery(db, "INSERT INTO books (title) VALUES (?)", ["book1"]);
-  })
+  .then(() => runQuery(db, "INSERT INTO books (title) VALUES (?)", ["book1"]))
   .then((statement) => {
     console.log(statement.lastID);
 
@@ -30,9 +28,7 @@ runQuery(
   db,
   "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL UNIQUE)",
 )
-  .then(() => {
-    return runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
-  })
+  .then(() => runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]))
   .catch((error) => {
     console.error(error.message);
 
