@@ -29,6 +29,8 @@ try {
 } catch (error) {
   if (error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
+  } else {
+    throw error;
   }
 }
 
@@ -37,6 +39,8 @@ try {
 } catch (error) {
   if (error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
+  } else {
+    throw error;
   }
 }
 
