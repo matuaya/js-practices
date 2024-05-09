@@ -27,7 +27,7 @@ await runQuery(
 try {
   await runQuery(db, "INSERT INTO books (name) VALUES (?)", ["book1"]);
 } catch (error) {
-  if (error && error.code === "SQLITE_ERROR") {
+  if (error instanceof Error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
   } else {
     throw error;
@@ -37,7 +37,7 @@ try {
 try {
   await getData(db, "SELECT * FROM textbooks WHERE title = ?", ["book1"]);
 } catch (error) {
-  if (error && error.code === "SQLITE_ERROR") {
+  if (error instanceof Error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
   } else {
     throw error;
