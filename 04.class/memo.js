@@ -38,7 +38,20 @@ class Memo {
     }
   }
 
-  static async delete() {}
+  static async delete() {
+    try {
+      let memos = await this.getAllMemos();
+      const prompt = await this.#selectPrompt(
+        "choose a memo you want to delete",
+      );
+      const selectedId = await prompt.run();
+      memos = memos.filter((memo) => memo.id !== selectedId);
+
+      fs.writeFile("memos.json", JSON.stringify(memos, null, 2));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   static async #promptUserInput() {
     return new Promise((resolve, reject) => {
