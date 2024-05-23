@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import readline from "readline";
+import enquirer from "enquirer";
 
 class Memo {
   static async getAllMemos() {
@@ -24,7 +25,19 @@ class Memo {
     const memos = await this.getAllMemos();
     memos.forEach((memo) => console.log(memo.content[0]));
   }
-  static async showFullContent() {}
+
+  static async showFullContent() {
+    try {
+      const memos = await this.getAllMemos();
+      const prompt = await this.#selectPrompt("Choose a memo you want to see");
+      const selectedId = await prompt.run();
+      const memo = memos.find((memo) => memo.id === selectedId);
+      memo.content.forEach((line) => console.log(line));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   static async delete() {}
 
   static async #promptUserInput() {
@@ -44,6 +57,19 @@ class Memo {
           resolve(lines);
         }
       });
+    });
+  }
+
+  static async #selectPrompt(instruction) {
+    const memos = await Memo.getAllMemos();
+    const memoChoices = memos.map((memo) => {
+      return { name: memo.id, message: memo.content[0] };
+    });
+
+    return new enquirer.Select({
+      name: "memo",
+      message: instruction,
+      choices: memoChoices,
     });
   }
 }
