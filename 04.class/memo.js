@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from "node:fs/promises";
 import { promptUserInput, selectPrompt } from "./memo_prompt.js";
 
