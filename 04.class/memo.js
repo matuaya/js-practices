@@ -20,7 +20,10 @@ class Memo {
     fs.writeFile("memos.json", JSON.stringify(memos, null, 2));
   }
 
-  static async showList() {}
+  static async showList() {
+    const memos = await this.getAllMemos();
+    memos.forEach((memo) => console.log(memo.content[0]));
+  }
   static async showFullContent() {}
   static async delete() {}
 
