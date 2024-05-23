@@ -1,8 +1,7 @@
 import fs from "node:fs/promises";
-import readline from "readline";
-import enquirer from "enquirer";
+import { promptUserInput, selectPrompt } from "./memo_prompt.js";
 
-class Memo {
+export class Memo {
   static async getAllMemos() {
     const memos = await fs.readFile("memos.json", "utf-8");
 
@@ -11,7 +10,7 @@ class Memo {
 
   static async add() {
     const memos = await this.getAllMemos();
-    const inputData = await this.#promptUserInput();
+    const inputData = await promptUserInput();
 
     const id =
       memos.length > 0 ? Math.max(...memos.map((memo) => memo.id)) + 1 : 1;
@@ -29,7 +28,7 @@ class Memo {
   static async showFullContent() {
     try {
       const memos = await this.getAllMemos();
-      const prompt = await this.#selectPrompt("Choose a memo you want to see");
+      const prompt = await selectPrompt("Choose a memo you want to see");
       const selectedId = await prompt.run();
       const memo = memos.find((memo) => memo.id === selectedId);
       memo.content.forEach((line) => console.log(line));
@@ -41,9 +40,7 @@ class Memo {
   static async delete() {
     try {
       let memos = await this.getAllMemos();
-      const prompt = await this.#selectPrompt(
-        "choose a memo you want to delete",
-      );
+      const prompt = await selectPrompt("choose a memo you want to delete");
       const selectedId = await prompt.run();
       memos = memos.filter((memo) => memo.id !== selectedId);
 
@@ -51,39 +48,6 @@ class Memo {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  static async #promptUserInput() {
-    return new Promise((resolve, reject) => {
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-
-      const lines = [];
-      rl.on("line", (input) => {
-        lines.push(input);
-      }).on("close", async () => {
-        if (lines.length === 0) {
-          reject(new Error("No input provided"));
-        } else {
-          resolve(lines);
-        }
-      });
-    });
-  }
-
-  static async #selectPrompt(instruction) {
-    const memos = await Memo.getAllMemos();
-    const memoChoices = memos.map((memo) => {
-      return { name: memo.id, message: memo.content[0] };
-    });
-
-    return new enquirer.Select({
-      name: "memo",
-      message: instruction,
-      choices: memoChoices,
-    });
   }
 }
 
