@@ -3,7 +3,7 @@
 import fs from "node:fs/promises";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
-export class Memo {
+export class MemoRepository {
   static async getAllMemos() {
     const memos = await fs.readFile("memos.json", "utf-8");
 
@@ -55,11 +55,11 @@ export class Memo {
 
 const option = process.argv[2];
 if (option === "-l") {
-  Memo.showList();
+  MemoRepository.showList();
 } else if (option === "-r") {
-  Memo.showFullContent();
+  MemoRepository.showFullContent();
 } else if (option === "-d") {
-  Memo.delete();
+  MemoRepository.delete();
 } else {
-  Memo.add();
+  MemoRepository.add();
 }
