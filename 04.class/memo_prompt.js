@@ -1,24 +1,21 @@
-import readline from "readline";
 import enquirer from "enquirer";
 import { Memo } from "./memo.js";
 
-export const promptUserInput = () => {
+export const readUserInput = () => {
   return new Promise((resolve, reject) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
+    process.stdin.setEncoding("utf-8");
 
-    const lines = [];
-    rl.on("line", (input) => {
-      lines.push(input);
-    }).on("close", async () => {
-      if (lines.length === 0) {
-        reject(new Error("No input provided"));
-      } else {
-        resolve(lines);
-      }
-    });
+    let inputData = "";
+    process.stdin
+      .on("data", (chunk) => (inputData += chunk))
+      .on("end", () => {
+        if (inputData == "") {
+          reject(new Error("No input provided"));
+        } else {
+          resolve(inputData);
+        }
+      })
+      .on("error", (error) => reject(error));
   });
 };
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
-import { promptUserInput, selectPrompt } from "./memo_prompt.js";
+import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
 export class Memo {
   static async getAllMemos() {
@@ -12,7 +12,7 @@ export class Memo {
 
   static async add() {
     const memos = await this.getAllMemos();
-    const inputData = await promptUserInput();
+    const inputData = await readUserInput();
 
     const id =
       memos.length > 0 ? Math.max(...memos.map((memo) => memo.id)) + 1 : 1;
