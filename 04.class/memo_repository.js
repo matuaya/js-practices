@@ -2,6 +2,7 @@
 
 import fs from "fs";
 import fsPromise from "node:fs/promises";
+import { Memo } from "./memo.js";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
 export class MemoRepository {
@@ -30,17 +31,17 @@ export class MemoRepository {
   }
 
   async showList() {
-    const memos = await this.getAllData();
-    memos.forEach((memo) => console.log(memo.content[0]));
+    const memos = await Memo.createMemos();
+    memos.forEach((memo) => console.log(memo.firstLine()));
   }
 
   async showFullContent() {
     try {
-      const memos = await this.getAllData();
+      const memos = await Memo.createMemos();
       const prompt = await selectPrompt("Choose a memo you want to see");
       const selectedId = await prompt.run();
       const memo = memos.find((memo) => memo.id === selectedId);
-      memo.content.forEach((line) => console.log(line));
+      memo.fullContent().forEach((line) => console.log(line));
     } catch (error) {
       console.error(error);
     }
