@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import fs from "node:fs/promises";
+import fs from "fs";
+import fsPromise from "node:fs/promises";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
 export class MemoRepository {
@@ -8,14 +9,16 @@ export class MemoRepository {
     this.path = "./memos.json";
   }
 
-  async getAllMemos() {
-    const memos = await fs.readFile(this.path, "utf-8");
-
-    return memos ? JSON.parse(memos) : [];
+  async getAllData() {
+    if (!fs.existsSync(this.path)) {
+      return [];
+    }
+    const allData = await fsPromise.readFile(this.path, "utf-8");
+    return JSON.parse(allData);
   }
 
   async add() {
-    const memos = await this.getAllMemos();
+    const memos = await this.getAllData();
     const inputData = await readUserInput();
 
     const id =
@@ -27,13 +30,13 @@ export class MemoRepository {
   }
 
   async showList() {
-    const memos = await this.getAllMemos();
+    const memos = await this.getAllData();
     memos.forEach((memo) => console.log(memo.content[0]));
   }
 
   async showFullContent() {
     try {
-      const memos = await this.getAllMemos();
+      const memos = await this.getAllData();
       const prompt = await selectPrompt("Choose a memo you want to see");
       const selectedId = await prompt.run();
       const memo = memos.find((memo) => memo.id === selectedId);
@@ -45,7 +48,7 @@ export class MemoRepository {
 
   async delete() {
     try {
-      let memos = await this.getAllMemos();
+      let memos = await this.getAllData();
       const prompt = await selectPrompt("choose a memo you want to delete");
       const selectedId = await prompt.run();
       memos = memos.filter((memo) => memo.id !== selectedId);
