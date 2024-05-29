@@ -4,13 +4,17 @@ import fs from "node:fs/promises";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
 export class MemoRepository {
-  static async getAllMemos() {
-    const memos = await fs.readFile("memos.json", "utf-8");
+  constructor() {
+    this.path = "./memos.json";
+  }
+
+  async getAllMemos() {
+    const memos = await fs.readFile(this.path, "utf-8");
 
     return memos ? JSON.parse(memos) : [];
   }
 
-  static async add() {
+  async add() {
     const memos = await this.getAllMemos();
     const inputData = await readUserInput();
 
@@ -19,15 +23,15 @@ export class MemoRepository {
     const newMemoData = { id: id, content: inputData };
     memos.push(newMemoData);
 
-    fs.writeFile("memos.json", JSON.stringify(memos, null, 2));
+    fs.writeFile(this.path, JSON.stringify(memos, null, 2));
   }
 
-  static async showList() {
+  async showList() {
     const memos = await this.getAllMemos();
     memos.forEach((memo) => console.log(memo.content[0]));
   }
 
-  static async showFullContent() {
+  async showFullContent() {
     try {
       const memos = await this.getAllMemos();
       const prompt = await selectPrompt("Choose a memo you want to see");
@@ -39,27 +43,29 @@ export class MemoRepository {
     }
   }
 
-  static async delete() {
+  async delete() {
     try {
       let memos = await this.getAllMemos();
       const prompt = await selectPrompt("choose a memo you want to delete");
       const selectedId = await prompt.run();
       memos = memos.filter((memo) => memo.id !== selectedId);
 
-      fs.writeFile("memos.json", JSON.stringify(memos, null, 2));
+      fs.writeFile(this.path, JSON.stringify(memos, null, 2));
     } catch (error) {
       console.log(error);
     }
   }
 }
 
+const memoRepo = new MemoRepository();
+
 const option = process.argv[2];
 if (option === "-l") {
-  MemoRepository.showList();
+  memoRepo.showList();
 } else if (option === "-r") {
-  MemoRepository.showFullContent();
+  memoRepo.showFullContent();
 } else if (option === "-d") {
-  MemoRepository.delete();
+  memoRepo.delete();
 } else {
-  MemoRepository.add();
+  memoRepo.add();
 }
