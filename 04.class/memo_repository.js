@@ -64,6 +64,29 @@ export class MemoRepository {
       console.log(error);
     }
   }
+
+  #fileExists() {
+    return fs.existsSync(this.path);
+  }
+
+  async #isFileEmpty() {
+    const fileContent = await fsPromise.readFile(this.path);
+    const parsedContent = JSON.parse(fileContent);
+
+    return parsedContent.length === 0;
+  }
+
+  async #checkFileAndContent() {
+    if (!this.#fileExists()) {
+      console.log("File does not exist");
+      return false;
+    } else if (await this.#isFileEmpty()) {
+      console.log("No memos found");
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
 const memoRepo = new MemoRepository();
