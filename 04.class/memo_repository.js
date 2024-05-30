@@ -26,13 +26,13 @@ export class MemoRepository {
   }
 
   async add() {
-    const memos = await this.getAllData();
+    const allData = await this.getAllData();
     const newId = await this.createNewId();
 
     const newData = await Memo.createData(newId);
-    memos.push(newData);
+    allData.push(newData);
 
-    fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+    fsPromise.writeFile(this.path, JSON.stringify(allData, null, 2));
   }
 
   async showList() {
@@ -54,12 +54,12 @@ export class MemoRepository {
 
   async delete() {
     try {
-      let memos = await this.getAllData();
+      let memos = await Memo.createMemos();
       const prompt = await selectPrompt("choose a memo you want to delete");
       const selectedId = await prompt.run();
       memos = memos.filter((memo) => memo.id !== selectedId);
 
-      fs.writeFile(this.path, JSON.stringify(memos, null, 2));
+      fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
     } catch (error) {
       console.log(error);
     }
