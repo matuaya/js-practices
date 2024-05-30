@@ -11,7 +11,7 @@ export class MemoRepository {
   }
 
   async getAllData() {
-    if (!fs.existsSync(this.path)) {
+    if (!this.#fileExists()) {
       return [];
     }
     const allData = await fsPromise.readFile(this.path, "utf-8");
@@ -32,7 +32,8 @@ export class MemoRepository {
     const newData = await Memo.createData(newId);
     allData.push(newData);
 
-    fsPromise.writeFile(this.path, JSON.stringify(allData, null, 2));
+    await fsPromise.writeFile(this.path, JSON.stringify(allData, null, 2));
+    console.log("Memo added successfully");
   }
 
   async showList() {
@@ -64,7 +65,8 @@ export class MemoRepository {
         const selectedId = await prompt.run();
         memos = memos.filter((memo) => memo.id !== selectedId);
 
-        fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+        await fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+        console.log("Memo deleted successfully");
       }
     } catch (error) {
       console.log(error);
