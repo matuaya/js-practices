@@ -36,17 +36,21 @@ export class MemoRepository {
   }
 
   async showList() {
-    const memos = await Memo.createMemos();
-    memos.forEach((memo) => console.log(memo.firstLine()));
+    if (await this.#checkFileAndContent()) {
+      const memos = await Memo.createMemos();
+      memos.forEach((memo) => console.log(memo.firstLine()));
+    }
   }
 
   async showFullContent() {
     try {
-      const memos = await Memo.createMemos();
-      const prompt = await selectPrompt("Choose a memo you want to see");
-      const selectedId = await prompt.run();
-      const memo = memos.find((memo) => memo.id === selectedId);
-      memo.fullContent().forEach((line) => console.log(line));
+      if (await this.#checkFileAndContent()) {
+        const memos = await Memo.createMemos();
+        const prompt = await selectPrompt("Choose a memo you want to see");
+        const selectedId = await prompt.run();
+        const memo = memos.find((memo) => memo.id === selectedId);
+        memo.fullContent().forEach((line) => console.log(line));
+      }
     } catch (error) {
       console.error(error);
     }
@@ -54,12 +58,14 @@ export class MemoRepository {
 
   async delete() {
     try {
-      let memos = await Memo.createMemos();
-      const prompt = await selectPrompt("choose a memo you want to delete");
-      const selectedId = await prompt.run();
-      memos = memos.filter((memo) => memo.id !== selectedId);
+      if (await this.#checkFileAndContent()) {
+        let memos = await Memo.createMemos();
+        const prompt = await selectPrompt("choose a memo you want to delete");
+        const selectedId = await prompt.run();
+        memos = memos.filter((memo) => memo.id !== selectedId);
 
-      fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+        fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+      }
     } catch (error) {
       console.log(error);
     }
