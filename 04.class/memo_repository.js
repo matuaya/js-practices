@@ -45,32 +45,24 @@ export class MemoRepository {
   }
 
   async showFullContent() {
-    try {
-      if (await this.#checkFileAndContent()) {
-        const memos = await Memo.createMemos();
-        const prompt = await selectPrompt("Choose a memo you want to see");
-        const selectedId = await prompt.run();
-        const memo = memos.find((memo) => memo.id === selectedId);
-        memo.fullContent().forEach((line) => console.log(line));
-      }
-    } catch (error) {
-      console.error(error);
+    if (await this.#checkFileAndContent()) {
+      const memos = await Memo.createMemos();
+      const prompt = await selectPrompt("Choose a memo you want to see");
+      const selectedId = await prompt.run();
+      const memo = memos.find((memo) => memo.id === selectedId);
+      memo.fullContent().forEach((line) => console.log(line));
     }
   }
 
   async delete() {
-    try {
-      if (await this.#checkFileAndContent()) {
-        let memos = await Memo.createMemos();
-        const prompt = await selectPrompt("choose a memo you want to delete");
-        const selectedId = await prompt.run();
-        memos = memos.filter((memo) => memo.id !== selectedId);
+    if (await this.#checkFileAndContent()) {
+      let memos = await Memo.createMemos();
+      const prompt = await selectPrompt("choose a memo you want to delete");
+      const selectedId = await prompt.run();
+      memos = memos.filter((memo) => memo.id !== selectedId);
 
-        await fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
-        console.log("Memo deleted successfully");
-      }
-    } catch (error) {
-      console.log(error);
+      await fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+      console.log("Memo deleted successfully");
     }
   }
 
