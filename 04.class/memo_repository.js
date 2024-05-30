@@ -35,6 +35,18 @@ export class MemoRepository {
     console.log("Memo added successfully");
   }
 
+  async delete() {
+    if (await this.#checkFileAndContent()) {
+      let memos = await Memo.createMemos();
+      const prompt = await selectPrompt("choose a memo you want to delete");
+      const selectedId = await prompt.run();
+      memos = memos.filter((memo) => memo.id !== selectedId);
+
+      await fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+      console.log("Memo deleted successfully");
+    }
+  }
+
   async showList() {
     if (await this.#checkFileAndContent()) {
       const memos = await Memo.createMemos();
@@ -49,18 +61,6 @@ export class MemoRepository {
       const selectedId = await prompt.run();
       const memo = memos.find((memo) => memo.id === selectedId);
       memo.fullContent().forEach((line) => console.log(line));
-    }
-  }
-
-  async delete() {
-    if (await this.#checkFileAndContent()) {
-      let memos = await Memo.createMemos();
-      const prompt = await selectPrompt("choose a memo you want to delete");
-      const selectedId = await prompt.run();
-      memos = memos.filter((memo) => memo.id !== selectedId);
-
-      await fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
-      console.log("Memo deleted successfully");
     }
   }
 
