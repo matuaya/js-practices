@@ -18,16 +18,22 @@ export class MemoRepository {
     return JSON.parse(allData);
   }
 
+  async createNewId() {
+    const allData = await this.getAllData();
+    return allData.length > 0
+      ? Math.max(...allData.map((memo) => memo.id)) + 1
+      : 1;
+  }
+
   async add() {
     const memos = await this.getAllData();
     const inputData = await readUserInput();
+    const newId = await this.createNewId();
 
-    const id =
-      memos.length > 0 ? Math.max(...memos.map((memo) => memo.id)) + 1 : 1;
-    const newMemoData = { id: id, content: inputData };
+    const newMemoData = { id: newId, content: inputData };
     memos.push(newMemoData);
 
-    fs.writeFile(this.path, JSON.stringify(memos, null, 2));
+    fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
   }
 
   async showList() {
