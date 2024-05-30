@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import fs from "fs";
 import fsPromise from "node:fs/promises";
 import { Memo } from "./memo.js";
@@ -88,17 +86,4 @@ export class MemoRepository {
       return true;
     }
   }
-}
-
-const memoRepo = new MemoRepository();
-
-const option = process.argv[2];
-if (option === "-l") {
-  memoRepo.showList();
-} else if (option === "-r") {
-  memoRepo.showFullContent();
-} else if (option === "-d") {
-  memoRepo.delete();
-} else {
-  memoRepo.add();
 }
