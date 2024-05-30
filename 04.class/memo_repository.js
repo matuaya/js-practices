@@ -3,7 +3,7 @@
 import fs from "fs";
 import fsPromise from "node:fs/promises";
 import { Memo } from "./memo.js";
-import { readUserInput, selectPrompt } from "./memo_prompt.js";
+import { selectPrompt } from "./memo_prompt.js";
 
 export class MemoRepository {
   constructor() {
@@ -27,11 +27,10 @@ export class MemoRepository {
 
   async add() {
     const memos = await this.getAllData();
-    const inputData = await readUserInput();
     const newId = await this.createNewId();
 
-    const newMemoData = { id: newId, content: inputData };
-    memos.push(newMemoData);
+    const newData = await Memo.createData(newId);
+    memos.push(newData);
 
     fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
   }
