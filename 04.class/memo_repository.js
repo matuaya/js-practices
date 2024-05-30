@@ -15,11 +15,13 @@ export class MemoRepository {
       return [];
     }
     const allData = await fsPromise.readFile(this.path, "utf-8");
+
     return JSON.parse(allData);
   }
 
   async createNewId() {
     const allData = await this.getAllData();
+
     return allData.length > 0
       ? Math.max(...allData.map((memo) => memo.id)) + 1
       : 1;
@@ -28,7 +30,6 @@ export class MemoRepository {
   async add() {
     const allData = await this.getAllData();
     const newId = await this.createNewId();
-
     const newData = await Memo.createData(newId);
     allData.push(newData);
 
