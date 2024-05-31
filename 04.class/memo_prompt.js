@@ -1,5 +1,5 @@
 import enquirer from "enquirer";
-import { Memo } from "./memo.js";
+import { Memo } from "./memo_model.js";
 
 export const readUserInput = () => {
   return new Promise((resolve, reject) => {

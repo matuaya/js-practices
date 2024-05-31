@@ -1,6 +1,6 @@
 import fs from "fs";
 import fsPromise from "node:fs/promises";
-import { Memo } from "./memo.js";
+import { Memo } from "./memo_model.js";
 import { selectPrompt } from "./memo_prompt.js";
 
 export class MemoRepository {
