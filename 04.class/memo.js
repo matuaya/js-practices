@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
+import JsonFileStorage from "./file_storage.js";
 import { MemoRepository } from "./memo_repository.js";
 
-const memoRepo = new MemoRepository();
+const storage = new JsonFileStorage();
+const memoRepo = new MemoRepository(storage);
 
 const option = process.argv[2];
 if (option === "-l") {
