@@ -66,15 +66,16 @@ export default class JsonFileStorage {
     return parsedContent.length === 0;
   }
 
-  async checkFileAndContent() {
+  async dataExists() {
     if (!(await this.#fileExists())) {
       console.log("File does not exist");
       return false;
-    } else if (await this.#fileHasContent()) {
+    }
+    if (await this.#fileHasContent()) {
       console.log("No memos found");
       return false;
-    } else {
-      return true;
     }
+
+    return true;
   }
 }

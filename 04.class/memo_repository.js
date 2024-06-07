@@ -19,14 +19,14 @@ export class MemoRepository {
   }
 
   async showList() {
-    if (await this.#checkFileAndContent()) {
+    if (await this.#dataExists()) {
       const memos = await Memo.createMemos();
       memos.forEach((memo) => console.log(memo.firstLine()));
     }
   }
 
   async showFullContent() {
-    if (await this.#checkFileAndContent()) {
+    if (await this.#dataExists()) {
       const memos = await Memo.createMemos();
       const prompt = await selectPrompt("Choose a memo you want to see");
       const selectedId = await prompt.run();
@@ -35,7 +35,7 @@ export class MemoRepository {
     }
   }
 
-  #checkFileAndContent() {
-    return this.storage.checkFileAndContent();
+  #dataExists() {
+    return this.storage.dataExists();
   }
 }
