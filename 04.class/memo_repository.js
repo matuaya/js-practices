@@ -1,4 +1,3 @@
-import fs from "fs";
 import fsPromise from "node:fs/promises";
 import { Memo } from "./memo_model.js";
 import { selectPrompt } from "./memo_prompt.js";
@@ -64,8 +63,17 @@ export class MemoRepository {
     }
   }
 
-  #fileExists() {
-    return fs.existsSync(this.path);
+  async #fileExists() {
+    try {
+      await fsPromise.access(this.file);
+      return true;
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        return false;
+      } else {
+        throw error;
+      }
+    }
   }
 
   async #isFileEmpty() {
