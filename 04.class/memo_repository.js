@@ -1,5 +1,4 @@
 import { Memo } from "./memo_model.js";
-import { selectPrompt } from "./memo_prompt.js";
 
 export class MemoRepository {
   constructor(storage) {
@@ -10,12 +9,12 @@ export class MemoRepository {
     return this.storage.getAllData();
   }
 
-  add() {
-    this.storage.add();
+  add(inputData) {
+    this.storage.add(inputData);
   }
 
-  delete() {
-    this.storage.delete();
+  delete(selectedId) {
+    this.storage.delete(selectedId);
   }
 
   async showList() {
@@ -25,11 +24,9 @@ export class MemoRepository {
     }
   }
 
-  async showFullContent() {
+  async showFullContent(selectedId) {
     if (await this.#dataExists()) {
       const memos = await Memo.createMemos();
-      const prompt = await selectPrompt("Choose a memo you want to see");
-      const selectedId = await prompt.run();
       const memo = memos.find((memo) => memo.id === selectedId);
       memo.fullContent().forEach((line) => console.log(line));
     }
