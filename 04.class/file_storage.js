@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { Memo } from "./memo_model.js";
-import { selectPrompt } from "./memo_prompt.js";
+import { selectPrompt, readUserInput } from "./memo_prompt.js";
 
 export default class JsonFileStorage {
   constructor() {
@@ -19,8 +19,8 @@ export default class JsonFileStorage {
   async add() {
     const allData = await this.getAllData();
     const newId = crypto.randomUUID();
-    const newData = await Memo.createData(newId);
-    allData.push(newData);
+    const inputData = await readUserInput();
+    allData.push({ id: newId, content: inputData });
 
     await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
     console.log("Memo added successfully");

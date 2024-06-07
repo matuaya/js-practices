@@ -1,16 +1,9 @@
 import { MemoRepository } from "./memo_repository.js";
-import { readUserInput } from "./memo_prompt.js";
 
 export class Memo {
   constructor(id, content) {
     this.id = id;
     this.content = content;
-  }
-
-  static async createData(newId) {
-    const inputData = await readUserInput();
-
-    return { id: newId, content: inputData };
   }
 
   static async createMemos() {
