@@ -35,7 +35,13 @@ export class MemoRepository {
     }
   }
 
-  #dataExists() {
-    return this.storage.dataExists();
+  async #dataExists() {
+    if (!(await this.storage.dataExists())) {
+      console.log("No memos found");
+
+      return false;
+    }
+
+    return true;
   }
 }
