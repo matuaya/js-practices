@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import { Memo } from "./memo_model.js";
 
 export default class JsonFileStorage {
   constructor() {
@@ -25,10 +24,10 @@ export default class JsonFileStorage {
 
   async delete(selectedId) {
     if (await this.checkFileAndContent()) {
-      let memos = await Memo.createMemos();
-      memos = memos.filter((memo) => memo.id !== selectedId);
+      let allData = await this.readAllData();
+      allData = allData.filter((data) => data.id !== selectedId);
 
-      await fs.writeFile(this.file, JSON.stringify(memos, null, 2));
+      await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
       console.log("Memo deleted successfully");
     }
   }
