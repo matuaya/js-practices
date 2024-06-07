@@ -1,4 +1,4 @@
-import fsPromise from "node:fs/promises";
+import fs from "node:fs/promises";
 import { Memo } from "./memo_model.js";
 import { selectPrompt } from "./memo_prompt.js";
 
@@ -11,7 +11,7 @@ export class MemoRepository {
     if (!this.#fileExists()) {
       return [];
     }
-    const allData = await fsPromise.readFile(this.path, "utf-8");
+    const allData = await fs.readFile(this.path, "utf-8");
 
     return JSON.parse(allData);
   }
@@ -30,7 +30,7 @@ export class MemoRepository {
     const newData = await Memo.createData(newId);
     allData.push(newData);
 
-    await fsPromise.writeFile(this.path, JSON.stringify(allData, null, 2));
+    await fs.writeFile(this.path, JSON.stringify(allData, null, 2));
     console.log("Memo added successfully");
   }
 
@@ -41,7 +41,7 @@ export class MemoRepository {
       const selectedId = await prompt.run();
       memos = memos.filter((memo) => memo.id !== selectedId);
 
-      await fsPromise.writeFile(this.path, JSON.stringify(memos, null, 2));
+      await fs.writeFile(this.path, JSON.stringify(memos, null, 2));
       console.log("Memo deleted successfully");
     }
   }
@@ -65,7 +65,7 @@ export class MemoRepository {
 
   async #fileExists() {
     try {
-      await fsPromise.access(this.file);
+      await fs.access(this.file);
       return true;
     } catch (error) {
       if (error.code === "ENOENT") {
@@ -77,7 +77,7 @@ export class MemoRepository {
   }
 
   async #isFileEmpty() {
-    const fileContent = await fsPromise.readFile(this.path);
+    const fileContent = await fs.readFile(this.path);
     const parsedContent = JSON.parse(fileContent);
 
     return parsedContent.length === 0;
