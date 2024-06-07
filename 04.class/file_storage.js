@@ -59,7 +59,7 @@ export default class JsonFileStorage {
     }
   }
 
-  async #isFileEmpty() {
+  async #fileHasContent() {
     const fileContent = await fs.readFile(this.file);
     const parsedContent = JSON.parse(fileContent);
 
@@ -70,7 +70,7 @@ export default class JsonFileStorage {
     if (!(await this.#fileExists())) {
       console.log("File does not exist");
       return false;
-    } else if (await this.#isFileEmpty()) {
+    } else if (await this.#fileHasContent()) {
       console.log("No memos found");
       return false;
     } else {
