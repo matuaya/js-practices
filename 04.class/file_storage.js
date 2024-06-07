@@ -23,7 +23,6 @@ export default class JsonFileStorage {
     allData.push({ id: newId, content: inputData });
 
     await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
-    console.log("Memo added successfully");
   }
 
   async delete() {
