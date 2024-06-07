@@ -16,17 +16,9 @@ export default class JsonFileStorage {
     return JSON.parse(allData);
   }
 
-  async createNewId() {
-    const allData = await this.getAllData();
-
-    return allData.length > 0
-      ? Math.max(...allData.map((memo) => memo.id)) + 1
-      : 1;
-  }
-
   async add() {
     const allData = await this.getAllData();
-    const newId = await this.createNewId();
+    const newId = crypto.randomUUID();
     const newData = await Memo.createData(newId);
     allData.push(newData);
 
