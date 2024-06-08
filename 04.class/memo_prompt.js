@@ -1,5 +1,4 @@
 import enquirer from "enquirer";
-import { Memo } from "./memo_model.js";
 
 export const readUserInput = () => {
   return new Promise((resolve, reject) => {
@@ -19,8 +18,7 @@ export const readUserInput = () => {
   });
 };
 
-export const selectPrompt = async (instruction) => {
-  const memos = await Memo.createMemos();
+export const selectPrompt = async (instruction, memos) => {
   const memoChoices = memos.map((memo) => {
     return { name: memo.id, message: memo.firstLine() };
   });

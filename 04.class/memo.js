@@ -13,11 +13,13 @@ const option = process.argv[2];
 if (option === "-l") {
   memoService.showList();
 } else if (option === "-r") {
-  const prompt = await selectPrompt("Choose a memo you want to see");
+  const memos = await repository.createMemos();
+  const prompt = await selectPrompt("Choose a memo you want to see", memos);
   const selectedId = await prompt.run();
   memoService.showFullContent(selectedId);
 } else if (option === "-d") {
-  const prompt = await selectPrompt("choose a memo you want to delete");
+  const memos = await repository.createMemos();
+  const prompt = await selectPrompt("choose a memo you want to delete", memos);
   const selectedId = await prompt.run();
   memoService.delete(selectedId);
 } else {
