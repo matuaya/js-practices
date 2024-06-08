@@ -22,6 +22,8 @@ export default class MemoService {
 
   async showFullContent(selectedId) {
     const memo = await this.repo.getMemo(selectedId);
-    memo.contentLines().forEach((line) => console.log(line));
+    memo.contentLines().forEach((line) => {
+      console.log(line);
+    });
   }
 }
