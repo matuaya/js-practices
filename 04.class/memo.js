@@ -5,11 +5,11 @@ import MemoRepository from "./memo_repository.js";
 import MemoService from "./memo_service.js";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
+const option = process.argv[2];
 const storage = new JsonFileStorage();
 const repository = new MemoRepository(storage);
 const memoService = new MemoService(repository);
 
-const option = process.argv[2];
 if (option === "-l") {
   if (await repository.dataExists()) {
     memoService.showList();
