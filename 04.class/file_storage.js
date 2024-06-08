@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 
 export default class JsonFileStorage {
-  constructor() {
-    this.file = "./memos.json";
+  constructor(filePath) {
+    this.file = filePath;
   }
 
   async getAllData() {

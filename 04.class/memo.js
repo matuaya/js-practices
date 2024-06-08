@@ -6,7 +6,7 @@ import MemoService from "./memo_service.js";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
 const option = process.argv[2];
-const storage = new JsonFileStorage();
+const storage = new JsonFileStorage("./memos.json");
 const repository = new MemoRepository(storage);
 const memoService = new MemoService(repository);
 
