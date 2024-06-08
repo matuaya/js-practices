@@ -21,8 +21,7 @@ export default class MemoService {
   }
 
   async showFullContent(selectedId) {
-    const memos = await this.repo.createMemos();
-    const memo = memos.find((memo) => memo.id === selectedId);
+    const memo = await this.repo.getMemo(selectedId);
     memo.fullContent().forEach((line) => console.log(line));
   }
 }
