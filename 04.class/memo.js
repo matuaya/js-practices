@@ -11,17 +11,26 @@ const memoService = new MemoService(repository);
 
 const option = process.argv[2];
 if (option === "-l") {
-  memoService.showList();
+  if (await repository.dataExists()) {
+    memoService.showList();
+  }
 } else if (option === "-r") {
-  const memos = await repository.createMemos();
-  const prompt = await selectPrompt("Choose a memo you want to see", memos);
-  const selectedId = await prompt.run();
-  memoService.showFullContent(selectedId);
+  if (await repository.dataExists()) {
+    const memos = await repository.createMemos();
+    const prompt = await selectPrompt("Choose a memo you want to see", memos);
+    const selectedId = await prompt.run();
+    memoService.showFullContent(selectedId);
+  }
 } else if (option === "-d") {
-  const memos = await repository.createMemos();
-  const prompt = await selectPrompt("choose a memo you want to delete", memos);
-  const selectedId = await prompt.run();
-  memoService.delete(selectedId);
+  if (await repository.dataExists()) {
+    const memos = await repository.createMemos();
+    const prompt = await selectPrompt(
+      "choose a memo you want to delete",
+      memos,
+    );
+    const selectedId = await prompt.run();
+    memoService.delete(selectedId);
+  }
 } else {
   const inputData = await readUserInput();
   memoService.add(inputData);

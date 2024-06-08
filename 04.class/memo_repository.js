@@ -25,7 +25,7 @@ export class MemoRepository {
     return memos.find((memo) => memo.id === selectedId);
   }
 
-  async #dataExists() {
+  async dataExists() {
     if (!(await this.storage.dataExists())) {
       console.log("No memos found");
 
