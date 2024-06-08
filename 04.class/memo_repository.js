@@ -5,10 +5,6 @@ export class MemoRepository {
     this.storage = storage;
   }
 
-  getAllData() {
-    return this.storage.getAllData();
-  }
-
   add(inputData) {
     this.storage.add(inputData);
   }
@@ -18,7 +14,7 @@ export class MemoRepository {
   }
 
   async createMemos() {
-    const allData = await this.getAllData();
+    const allData = await this.#getAllData();
     const memos = allData.map((data) => new Memo(data.id, data.content));
 
     return memos;
@@ -32,5 +28,9 @@ export class MemoRepository {
     }
 
     return true;
+  }
+
+  #getAllData() {
+    return this.storage.getAllData();
   }
 }
