@@ -1,6 +1,6 @@
-import { Memo } from "./memo_model.js";
+import Memo from "./memo_model.js";
 
-export class MemoRepository {
+export default class MemoRepository {
   constructor(storage) {
     this.storage = storage;
   }

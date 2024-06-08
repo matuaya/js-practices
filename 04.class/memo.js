@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import JsonFileStorage from "./file_storage.js";
-import { MemoRepository } from "./memo_repository.js";
+import MemoRepository from "./memo_repository.js";
 import MemoService from "./memo_service.js";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
