@@ -18,14 +18,14 @@ export const readUserInput = () => {
   });
 };
 
-export const selectPrompt = async (instruction, memos) => {
+export const selectPrompt = async (message, memos) => {
   const memoChoices = memos.map((memo) => {
     return { name: memo.id, message: memo.firstLine() };
   });
 
   return new enquirer.Select({
     name: "memo",
-    message: instruction,
+    message: message,
     choices: memoChoices,
   });
 };
