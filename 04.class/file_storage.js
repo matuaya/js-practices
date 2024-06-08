@@ -29,6 +29,17 @@ export default class JsonFileStorage {
     await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
   }
 
+  async dataExists() {
+    if (!(await this.#fileExists())) {
+      return false;
+    }
+    if (await this.#fileHasContent()) {
+      return false;
+    }
+
+    return true;
+  }
+
   async #fileExists() {
     try {
       await fs.access(this.file);
@@ -47,16 +58,5 @@ export default class JsonFileStorage {
     const parsedContent = JSON.parse(fileContent);
 
     return parsedContent.length === 0;
-  }
-
-  async dataExists() {
-    if (!(await this.#fileExists())) {
-      return false;
-    }
-    if (await this.#fileHasContent()) {
-      return false;
-    }
-
-    return true;
   }
 }
