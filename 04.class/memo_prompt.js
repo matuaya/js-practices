@@ -19,13 +19,13 @@ export const readUserInput = () => {
 };
 
 export const selectPrompt = async (message, memos) => {
-  const memoChoices = memos.map((memo) => {
+  const choices = memos.map((memo) => {
     return { name: memo.id, message: memo.firstLine() };
   });
 
   return new enquirer.Select({
     name: "memo",
     message: message,
-    choices: memoChoices,
+    choices: choices,
   });
 };
