@@ -5,12 +5,12 @@ export class Memo {
   }
 
   firstLine() {
-    const lines = this.fullContent();
+    const lines = this.contentLines();
 
     return lines[0];
   }
 
-  fullContent() {
+  contentLines() {
     return this.content.split("\n");
   }
 }
