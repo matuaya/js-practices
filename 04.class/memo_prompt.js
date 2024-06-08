@@ -8,7 +8,7 @@ export const readUserInput = () => {
     process.stdin
       .on("data", (chunk) => (inputData += chunk))
       .on("end", () => {
-        if (inputData == "") {
+        if (inputData === "") {
           reject(new Error("No input provided"));
         } else {
           resolve(inputData);
