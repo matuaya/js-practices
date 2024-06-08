@@ -24,21 +24,6 @@ export class MemoRepository {
     return memos;
   }
 
-  async showList() {
-    if (await this.#dataExists()) {
-      const memos = await this.createMemos();
-      memos.forEach((memo) => console.log(memo.firstLine()));
-    }
-  }
-
-  async showFullContent(selectedId) {
-    if (await this.#dataExists()) {
-      const memos = await this.createMemos();
-      const memo = memos.find((memo) => memo.id === selectedId);
-      memo.fullContent().forEach((line) => console.log(line));
-    }
-  }
-
   async #dataExists() {
     if (!(await this.storage.dataExists())) {
       console.log("No memos found");

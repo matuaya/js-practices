@@ -28,7 +28,6 @@ export default class JsonFileStorage {
       allData = allData.filter((data) => data.id !== selectedId);
 
       await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
-      console.log("Memo deleted successfully");
     }
   }
 
