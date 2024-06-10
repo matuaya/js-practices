@@ -18,8 +18,16 @@ if (option === "-l") {
   if (await repository.dataExists()) {
     const memos = await repository.createMemos();
     const prompt = await selectPrompt("Choose a memo you want to see", memos);
-    const selectedId = await prompt.run();
-    memoService.showFullContent(selectedId);
+    try {
+      const selectedId = await prompt.run();
+      memoService.showFullContent(selectedId);
+    } catch (error) {
+      if (error === "") {
+        console.log("No memo selected");
+      } else {
+        throw error;
+      }
+    }
   }
 } else if (option === "-d") {
   if (await repository.dataExists()) {
@@ -28,8 +36,16 @@ if (option === "-l") {
       "choose a memo you want to delete",
       memos,
     );
-    const selectedId = await prompt.run();
-    memoService.delete(selectedId);
+    try {
+      const selectedId = await prompt.run();
+      memoService.delete(selectedId);
+    } catch (error) {
+      if (error === "") {
+        console.log("No memo selected");
+      } else {
+        throw error;
+      }
+    }
   }
 } else {
   const inputData = await readUserInput();
