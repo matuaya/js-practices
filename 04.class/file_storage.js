@@ -33,7 +33,7 @@ export default class JsonFileStorage {
     if (!(await this.#fileExists())) {
       return false;
     }
-    if (await this.#fileHasContent()) {
+    if (!(await this.#fileHasContent())) {
       return false;
     }
 
@@ -57,6 +57,6 @@ export default class JsonFileStorage {
     const fileContent = await fs.readFile(this.file);
     const parsedContent = JSON.parse(fileContent);
 
-    return parsedContent.length === 0;
+    return parsedContent.length > 0;
   }
 }
