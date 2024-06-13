@@ -1,27 +1,27 @@
 export default class MemoService {
   constructor(repository) {
-    this.repo = repository;
+    this.repository = repository;
   }
 
   async add(inputData) {
-    this.repo.add(inputData);
+    this.repository.add(inputData);
   }
 
   async delete(selectedId) {
-    this.repo.delete(selectedId);
+    this.repository.delete(selectedId);
 
     console.log("Memo deleted successfully");
   }
 
   async showList() {
-    const memos = await this.repo.createMemos();
+    const memos = await this.repository.createMemos();
     memos.forEach((memo) => {
       console.log(memo.firstLine());
     });
   }
 
   async showFullContent(selectedId) {
-    const memo = await this.repo.getMemo(selectedId);
+    const memo = await this.repository.getMemo(selectedId);
     memo.contentLines().forEach((line) => {
       console.log(line);
     });
