@@ -13,6 +13,8 @@ const service = new MemoService(repository);
 if (option === "-l") {
   if (await repository.dataExists()) {
     service.showList();
+  } else {
+    console.log("No memos found");
   }
 } else if (option === "-r") {
   if (await repository.dataExists()) {
@@ -28,6 +30,8 @@ if (option === "-l") {
         throw error;
       }
     }
+  } else {
+    console.log("No memos found");
   }
 } else if (option === "-d") {
   if (await repository.dataExists()) {
@@ -46,6 +50,8 @@ if (option === "-l") {
         throw error;
       }
     }
+  } else {
+    console.log("No memos found");
   }
 } else {
   const inputData = await readUserInput();

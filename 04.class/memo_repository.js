@@ -26,13 +26,7 @@ export default class MemoRepository {
   }
 
   async dataExists() {
-    if (!(await this.storage.dataExists())) {
-      console.log("No memos found");
-
-      return false;
-    }
-
-    return true;
+    return this.storage.dataExists();
   }
 
   #getAllData() {
