@@ -20,8 +20,6 @@ export default class MemoService {
 
   async showFullContent(id) {
     const memo = await this.repository.getMemo(id);
-    memo.contentLines().forEach((line) => {
-      console.log(line);
-    });
+    console.log(memo.content);
   }
 }
