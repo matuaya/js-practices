@@ -2,14 +2,14 @@ import fs from "node:fs/promises";
 
 export default class JsonFileStorage {
   constructor(filePath) {
-    this.file = filePath;
+    this.filePath = filePath;
   }
 
   async getAllData() {
     if (!(await this.#fileExists())) {
       return [];
     }
-    const allData = await fs.readFile(this.file, "utf-8");
+    const allData = await fs.readFile(this.filePath, "utf-8");
 
     return JSON.parse(allData);
   }
@@ -19,14 +19,14 @@ export default class JsonFileStorage {
     const newId = crypto.randomUUID();
     allData.push({ id: newId, content: inputData });
 
-    await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
+    await fs.writeFile(this.filePath, JSON.stringify(allData, null, 2));
   }
 
   async delete(id) {
     let allData = await this.getAllData();
     allData = allData.filter((data) => data.id !== id);
 
-    await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
+    await fs.writeFile(this.filePath, JSON.stringify(allData, null, 2));
   }
 
   async dataExists() {
@@ -42,7 +42,7 @@ export default class JsonFileStorage {
 
   async #fileExists() {
     try {
-      await fs.access(this.file);
+      await fs.access(this.filePath);
       return true;
     } catch (error) {
       if (error?.code === "ENOENT") {
@@ -54,7 +54,7 @@ export default class JsonFileStorage {
   }
 
   async #fileHasContent() {
-    const fileContent = await fs.readFile(this.file);
+    const fileContent = await fs.readFile(this.filePath);
     const parsedContent = JSON.parse(fileContent);
 
     return parsedContent.length > 0;
