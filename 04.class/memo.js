@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import JsonFileStorage from "./file_storage.js";
+import MemoJsonStorage from "./file_storage.js";
 import MemoRepository from "./memo_repository.js";
 import MemoService from "./memo_service.js";
 import { readUserInput, selectPrompt } from "./memo_prompt.js";
 
 const option = process.argv[2];
-const storage = new JsonFileStorage("./memos.json");
+const storage = new MemoJsonStorage("./memos.json");
 const repository = new MemoRepository(storage);
 const service = new MemoService(repository);
 

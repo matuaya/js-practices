@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 
-export default class JsonFileStorage {
+export default class MemoJsonStorage {
   constructor(filePath) {
     this.filePath = filePath;
   }
