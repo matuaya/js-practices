@@ -13,7 +13,7 @@ export default class MemoRepository {
     this.storage.delete(selectedId);
   }
 
-  async createMemos() {
+  async getMemos() {
     const allData = await this.#getAllData();
     const memos = allData.map((data) => new Memo(data.id, data.content));
 
@@ -21,7 +21,7 @@ export default class MemoRepository {
   }
 
   async getMemo(selectedId) {
-    const memos = await this.createMemos();
+    const memos = await this.getMemos();
     return memos.find((memo) => memo.id === selectedId);
   }
 

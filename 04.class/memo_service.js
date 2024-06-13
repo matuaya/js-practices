@@ -14,7 +14,7 @@ export default class MemoService {
   }
 
   async showList() {
-    const memos = await this.repository.createMemos();
+    const memos = await this.repository.getMemos();
     memos.forEach((memo) => {
       console.log(memo.firstLine());
     });

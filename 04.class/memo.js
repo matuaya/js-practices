@@ -16,7 +16,7 @@ if (option === "-l") {
   }
 } else if (option === "-r") {
   if (await repository.dataExists()) {
-    const memos = await repository.createMemos();
+    const memos = await repository.getMemos();
     const prompt = await selectPrompt("Choose a memo you want to see", memos);
     try {
       const selectedId = await prompt.run();
@@ -31,7 +31,7 @@ if (option === "-l") {
   }
 } else if (option === "-d") {
   if (await repository.dataExists()) {
-    const memos = await repository.createMemos();
+    const memos = await repository.getMemos();
     const prompt = await selectPrompt(
       "choose a memo you want to delete",
       memos,
