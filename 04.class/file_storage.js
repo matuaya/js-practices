@@ -45,7 +45,7 @@ export default class JsonFileStorage {
       await fs.access(this.filePath);
       return true;
     } catch (error) {
-      if (error?.code === "ENOENT") {
+      if (error instanceof Error && error.code === "ENOENT") {
         return false;
       } else {
         throw error;
