@@ -7,8 +7,8 @@ export default class MemoService {
     this.repository.add(inputData);
   }
 
-  async delete(selectedId) {
-    this.repository.delete(selectedId);
+  async delete(id) {
+    this.repository.delete(id);
 
     console.log("Memo deleted successfully");
   }
@@ -20,8 +20,8 @@ export default class MemoService {
     });
   }
 
-  async showFullContent(selectedId) {
-    const memo = await this.repository.getMemo(selectedId);
+  async showFullContent(id) {
+    const memo = await this.repository.getMemo(id);
     memo.contentLines().forEach((line) => {
       console.log(line);
     });

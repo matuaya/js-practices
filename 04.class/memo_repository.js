@@ -9,8 +9,8 @@ export default class MemoRepository {
     this.storage.add(inputData);
   }
 
-  delete(selectedId) {
-    this.storage.delete(selectedId);
+  delete(id) {
+    this.storage.delete(id);
   }
 
   async getMemos() {
@@ -20,9 +20,9 @@ export default class MemoRepository {
     return memos;
   }
 
-  async getMemo(selectedId) {
+  async getMemo(id) {
     const memos = await this.getMemos();
-    return memos.find((memo) => memo.id === selectedId);
+    return memos.find((memo) => memo.id === id);
   }
 
   async dataExists() {

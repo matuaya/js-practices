@@ -22,9 +22,9 @@ export default class JsonFileStorage {
     await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
   }
 
-  async delete(selectedId) {
+  async delete(id) {
     let allData = await this.getAllData();
-    allData = allData.filter((data) => data.id !== selectedId);
+    allData = allData.filter((data) => data.id !== id);
 
     await fs.writeFile(this.file, JSON.stringify(allData, null, 2));
   }
