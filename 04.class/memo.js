@@ -8,11 +8,11 @@ import { readUserInput, selectPrompt } from "./memo_prompt.js";
 const option = process.argv[2];
 const storage = new JsonFileStorage("./memos.json");
 const repository = new MemoRepository(storage);
-const memoService = new MemoService(repository);
+const service = new MemoService(repository);
 
 if (option === "-l") {
   if (await repository.dataExists()) {
-    memoService.showList();
+    service.showList();
   }
 } else if (option === "-r") {
   if (await repository.dataExists()) {
@@ -20,7 +20,7 @@ if (option === "-l") {
     const prompt = await selectPrompt("Choose a memo you want to see", memos);
     try {
       const selectedId = await prompt.run();
-      memoService.showFullContent(selectedId);
+      service.showFullContent(selectedId);
     } catch (error) {
       if (error === "") {
         console.log("No memo selected");
@@ -38,7 +38,7 @@ if (option === "-l") {
     );
     try {
       const selectedId = await prompt.run();
-      memoService.delete(selectedId);
+      service.delete(selectedId);
     } catch (error) {
       if (error === "") {
         console.log("No memo selected");
@@ -49,5 +49,5 @@ if (option === "-l") {
   }
 } else {
   const inputData = await readUserInput();
-  memoService.add(inputData);
+  service.add(inputData);
 }
