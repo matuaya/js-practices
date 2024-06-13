@@ -3,11 +3,11 @@ export default class MemoService {
     this.repository = repository;
   }
 
-  async add(inputData) {
+  add(inputData) {
     this.repository.add(inputData);
   }
 
-  async delete(id) {
+  delete(id) {
     this.repository.delete(id);
   }
 

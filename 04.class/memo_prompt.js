@@ -18,7 +18,7 @@ export const readUserInput = () => {
   });
 };
 
-export const selectPrompt = async (message, memos) => {
+export const selectPrompt = (message, memos) => {
   const choices = memos.map((memo) => ({
     name: memo.id,
     message: memo.firstLine(),

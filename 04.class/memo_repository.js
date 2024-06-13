@@ -25,7 +25,7 @@ export default class MemoRepository {
     return memos.find((memo) => memo.id === id);
   }
 
-  async dataExists() {
+  dataExists() {
     return this.storage.dataExists();
   }
 }
