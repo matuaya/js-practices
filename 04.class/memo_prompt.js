@@ -26,7 +26,7 @@ export const selectPrompt = (message, memos) => {
 
   return new enquirer.Select({
     name: "memo",
-    message: message,
-    choices: choices,
+    message,
+    choices,
   });
 };
