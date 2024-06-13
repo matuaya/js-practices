@@ -43,6 +43,7 @@ if (option === "-l") {
     try {
       const selectedId = await prompt.run();
       service.delete(selectedId);
+      console.log("Memo deleted successfully");
     } catch (error) {
       if (error === "") {
         console.log("No memo selected");

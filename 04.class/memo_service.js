@@ -9,8 +9,6 @@ export default class MemoService {
 
   async delete(id) {
     this.repository.delete(id);
-
-    console.log("Memo deleted successfully");
   }
 
   async showList() {
