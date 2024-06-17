@@ -21,6 +21,7 @@ export default class MemoRepository {
 
   async getMemo(id) {
     const memos = await this.getMemos();
+
     return memos.find((memo) => memo.id === id);
   }
 
