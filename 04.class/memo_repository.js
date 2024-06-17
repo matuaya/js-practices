@@ -15,9 +15,8 @@ export default class MemoRepository {
 
   async getMemos() {
     const allData = await this.storage.getAllData();
-    const memos = allData.map((data) => new Memo(data.id, data.content));
 
-    return memos;
+    return allData.map((data) => new Memo(data.id, data.content));
   }
 
   async getMemo(id) {
