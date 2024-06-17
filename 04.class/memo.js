@@ -10,51 +10,67 @@ const storage = new MemoJsonStorage("./memos.json");
 const repository = new MemoRepository(storage);
 const service = new MemoService(repository);
 
-if (option === "-l") {
-  if (await repository.dataExists()) {
-    service.showList();
-  } else {
+const showMemoList = async () => {
+  if (!(await repository.dataExists())) {
     console.log("No memos found");
+
+    return;
   }
-} else if (option === "-r") {
-  if (await repository.dataExists()) {
-    const memos = await repository.getMemos();
-    const prompt = await selectPrompt("Choose a memo you want to see", memos);
-    try {
-      const selectedId = await prompt.run();
-      service.showFullContent(selectedId);
-    } catch (error) {
-      if (error === "") {
-        console.log("No memo selected");
-      } else {
-        throw error;
-      }
+  service.showList();
+};
+
+const showMemoContent = async () => {
+  if (!(await repository.dataExists())) {
+    console.log("No memos found");
+
+    return;
+  }
+  const memos = await repository.getMemos();
+  const prompt = await selectPrompt("Choose a memo you want to see", memos);
+  try {
+    const selectedId = await prompt.run();
+    service.showFullContent(selectedId);
+  } catch (error) {
+    if (error === "") {
+      console.log("No memo selected");
+    } else {
+      throw error;
     }
-  } else {
-    console.log("No memos found");
   }
-} else if (option === "-d") {
-  if (await repository.dataExists()) {
-    const memos = await repository.getMemos();
-    const prompt = await selectPrompt(
-      "choose a memo you want to delete",
-      memos,
-    );
-    try {
-      const selectedId = await prompt.run();
-      service.delete(selectedId);
-      console.log("Memo deleted successfully");
-    } catch (error) {
-      if (error === "") {
-        console.log("No memo selected");
-      } else {
-        throw error;
-      }
+};
+
+const deleteMemo = async () => {
+  if (!(await repository.dataExists())) {
+    console.log("No memos found");
+
+    return;
+  }
+  const memos = await repository.getMemos();
+  const prompt = await selectPrompt("choose a memo you want to delete", memos);
+  try {
+    const selectedId = await prompt.run();
+    service.delete(selectedId);
+    console.log("Memo deleted successfully");
+  } catch (error) {
+    if (error === "") {
+      console.log("No memo selected");
+    } else {
+      throw error;
     }
-  } else {
-    console.log("No memos found");
   }
-} else {
+};
+
+const addMemo = async () => {
   const inputData = await readUserInput();
   service.add(inputData);
+};
+
+if (option === "-l") {
+  showMemoList();
+} else if (option === "-r") {
+  showMemoContent();
+} else if (option === "-d") {
+  deleteMemo();
+} else {
+  addMemo();
 }
