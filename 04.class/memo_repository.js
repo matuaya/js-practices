@@ -5,12 +5,12 @@ export default class MemoRepository {
     this.storage = storage;
   }
 
-  add(inputData) {
-    this.storage.add(inputData);
+  async add(inputData) {
+    return await this.storage.add(inputData);
   }
 
-  delete(id) {
-    this.storage.delete(id);
+  async delete(id) {
+    return await this.storage.delete(id);
   }
 
   async getMemos() {
@@ -25,7 +25,7 @@ export default class MemoRepository {
     return memos.find((memo) => memo.id === id);
   }
 
-  dataExists() {
-    return this.storage.dataExists();
+  async dataExists() {
+    return await this.storage.dataExists();
   }
 }

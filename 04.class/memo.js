@@ -16,7 +16,7 @@ const showMemoList = async () => {
 
     return;
   }
-  service.showList();
+  await service.showList();
 };
 
 const showMemoContent = async () => {
@@ -29,7 +29,7 @@ const showMemoContent = async () => {
   const prompt = await selectPrompt("Choose a memo you want to see", memos);
   try {
     const selectedId = await prompt.run();
-    service.showFullContent(selectedId);
+    await service.showFullContent(selectedId);
   } catch (error) {
     if (error === "") {
       console.log("No memo selected");
@@ -49,7 +49,7 @@ const deleteMemo = async () => {
   const prompt = await selectPrompt("choose a memo you want to delete", memos);
   try {
     const selectedId = await prompt.run();
-    service.delete(selectedId);
+    await service.delete(selectedId);
     console.log("Memo deleted successfully");
   } catch (error) {
     if (error === "") {
@@ -62,7 +62,7 @@ const deleteMemo = async () => {
 
 const addMemo = async () => {
   const inputData = await readUserInput();
-  service.add(inputData);
+  await service.add(inputData);
 };
 
 if (option === "-l") {
