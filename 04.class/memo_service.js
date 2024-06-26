@@ -16,11 +16,13 @@ export default class MemoService {
 
       return;
     }
+
     const memos = await this.repository.getMemos();
     const prompt = await selectPrompt(
       "choose a memo you want to delete",
       memos,
     );
+
     try {
       const selectedId = await prompt.run();
       await this.repository.delete(selectedId);
@@ -40,6 +42,7 @@ export default class MemoService {
 
       return;
     }
+
     const memos = await this.repository.getMemos();
     memos.forEach((memo) => {
       console.log(memo.firstLine());
@@ -52,8 +55,10 @@ export default class MemoService {
 
       return;
     }
+
     const memos = await this.repository.getMemos();
     const prompt = await selectPrompt("Choose a memo you want to see", memos);
+
     try {
       const selectedId = await prompt.run();
       const memo = await this.repository.getMemo(selectedId);
