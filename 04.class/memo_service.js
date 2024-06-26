@@ -7,7 +7,7 @@ export default class MemoService {
 
   async add() {
     const inputData = await readUserInput();
-    this.repository.add(inputData);
+    return this.repository.add(inputData);
   }
 
   async delete() {
