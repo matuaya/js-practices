@@ -28,5 +28,8 @@ export const selectPrompt = (message, memos) => {
     name: "memo",
     message,
     choices,
+    format() {
+      return null;
+    },
   });
 };
